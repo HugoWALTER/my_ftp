@@ -27,7 +27,7 @@ int	detect_user(t_srv *srv, char *buffer, int size)
 	if (strncmp(buffer, "USER", 4) == 0 && size > 5
 	&& (srv->srv_auth == 0 || srv->srv_auth == 1)) {
 		srv->scnd = epur_str(buffer);
-		if (strcmp(srv->scnd, NAME_USER) == 0) {
+		if (strncmp(srv->scnd, NAME_USER, 9) == 0) {
 			srv->srv_auth = 1;
 			send_txt_client(srv, 331);
 		} else {
@@ -60,9 +60,9 @@ int	clt_not_auth(t_srv *srv)
 	int	n = read(srv->client_fd, &buffer, 512);
 	int	size = strlen(buffer);
 
-	buffer[n - 1] = '\0';//n - 2
+	buffer[n] = '\0';
 	if (n > 0)
-		printf("$> %s\n", buffer);
+		printf("$> %s", buffer);
 	detect_user(srv, buffer, size);
 	if (detect_password(srv, buffer) == 2)
 		return (srv->srv_auth);

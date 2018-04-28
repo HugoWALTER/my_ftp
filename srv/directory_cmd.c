@@ -22,7 +22,8 @@ int	init_pwd(t_srv *srv, char *buffer)
 
 int	check_cdup_directory(t_srv *srv)
 {
-	if (strcmp("..", srv->scnd) == 0) {
+	if (strncmp("..", srv->scnd, 2) == 0) {
+		srv->scnd[strlen(srv->scnd) - 1] = '\0';
 		if (chdir(srv->scnd) == -1)
 			send_txt_client(srv, 552);
 		else
@@ -53,6 +54,7 @@ int	directory_command(t_srv *srv, char *buffer, int size)
 		send_txt_client(srv, 552);
 	if (strncmp(buffer, "CWD", 3) == 0 && size > 4) {
 		srv->scnd = epur_str(buffer);
+		srv->scnd[strlen(srv->scnd) - 1] = '\0';
 		if (chdir(srv->scnd) == -1)
 			send_txt_client(srv, 552);
 		else

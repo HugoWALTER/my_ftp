@@ -24,7 +24,8 @@ t_help_code const	*get_help_display(char *str)
 	int	i = 0;
 
 	while (st_help_code[i].id != -1) {
-		if (strcmp(st_help_code[i].cmd, str) == 0)
+		if (strncmp(st_help_code[i].cmd,
+			str, strlen(st_help_code[i].cmd)) == 0)
 			return (&st_help_code[i]);
 		i++;
 	}

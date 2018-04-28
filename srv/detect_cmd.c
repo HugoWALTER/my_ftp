@@ -20,13 +20,13 @@ int	checking_commands(t_srv *srv, char *buffer, int size)
 
 int	detect_command(t_srv *srv)
 {
-	char	buffer[512];
+	char	buffer[BUFF_SIZE];
 	int	n = read(srv->client_fd, &buffer, 512);
 	int	size = strlen(buffer);
 
-	buffer[n - 1] = '\0';
+	buffer[n] = '\0';
 	if (n > 0)
-		printf("$> %s\n", buffer);
+		printf("$> %s", buffer);
 	checking_commands(srv, buffer, size);
 	if (strncmp(buffer, "QUIT", 4) == 0) {
 		send_txt_client(srv, 221);
