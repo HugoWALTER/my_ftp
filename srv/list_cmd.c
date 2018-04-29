@@ -52,6 +52,7 @@ int	launch_specified_listing(t_srv *srv, char *buffer)
 	char	*pwd = NULL;
 
 	srv->scnd = epur_str(buffer);
+	srv->scnd[strlen(srv->scnd) - 1] = '\0';
 	pwd = getcwd(pwd, BUFF_SIZE);
 	cmd = calloc(500, sizeof(char));
 	if (cmd == NULL)

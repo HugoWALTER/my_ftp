@@ -47,10 +47,11 @@ int	start_passiv_or_activ_stor(t_srv *srv)
 int	check_valid_stor(t_srv *srv, char *buffer)
 {
 	if (srv->mode == ANY)
-		send_txt_client(srv, 425);
+		send_txt_client(srv, 556);
 	if (srv->mode == PASSIV || srv->mode == ACTIV) {
 		start_passiv_or_activ_stor(srv);
 		srv->scnd = epur_str(buffer);
+		srv->scnd[strlen(srv->scnd) - 1] = '\0';
 		if (creation_file(srv, srv->scnd) == 84)
 			send_txt_client(srv, 555);
 		else
@@ -63,9 +64,9 @@ int	stor_cmd(t_srv *srv, char *buffer, int size)
 {
 	if (strncmp(buffer, "STOR", 4) == 0 && size == 5) {
 		if (srv->mode == ANY)
-			send_txt_client(srv, 425);
+			send_txt_client(srv, 556);
 		else
-			send_txt_client(srv, 530);
+			send_txt_client(srv, 556);
 	}
 	if (strncmp(buffer, "STOR", 4) == 0 && size > 5)
 		check_valid_stor(srv, buffer);

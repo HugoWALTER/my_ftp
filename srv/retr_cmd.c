@@ -55,6 +55,7 @@ int	check_valid_retr(t_srv *srv, char *buffer)
 	if (srv->mode == PASSIV || srv->mode == ACTIV) {
 		start_passiv_or_activ_retr(srv);
 		srv->scnd = epur_str(buffer);
+		srv->scnd[strlen(srv->scnd) - 1] = '\0';
 		if (check_file(srv, srv->scnd) == 84)
 			send_txt_client(srv, 550);
 		else

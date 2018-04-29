@@ -38,6 +38,7 @@ int	fill_port_passiv(t_srv *srv)
 int	port_command(t_srv *srv, char *buffer)
 {
 	srv->scnd = epur_str(buffer);
+	srv->scnd[strlen(srv->scnd) - 1] = '\0';
 	if (check_host_port_validity(srv->scnd) == 84)
 		return (txt_to_send(srv, "PORT must be valid\r\n"));
 	srv->port_addr = get_port_addr(srv);

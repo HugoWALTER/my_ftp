@@ -13,7 +13,8 @@ int	delete_command(t_srv *srv, char *buffer, int size)
 		send_txt_client(srv, 550);
 	if (strncmp(buffer, "DELE", 4) == 0 && size > 5) {
 		srv->scnd = epur_str(buffer);
-		if (!access(srv->scnd, F_OK))
+		srv->scnd[strlen(srv->scnd) - 1] = '\0';
+		if (access(srv->scnd, F_OK) == -1)
 			send_txt_client(srv, 550);
 		if (remove(srv->scnd) == 0)
 			send_txt_client(srv, 250);

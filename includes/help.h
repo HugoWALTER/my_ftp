@@ -57,6 +57,7 @@ static	const	t_rply_code	st_rply_code[] = {
 	{ 33, 333, "331", "Please specify the password.\r\n" },
 	{ 34, 534, "530", "Login incorrect.\r\n" },
 	{ 35, 216, "214", "Help ok.\r\n" },
+	{ 36, 556, "550", "Permission denied.\r\n" },
 	{ -1, -1, "-1", "Error (RFC compliant)\r\n" }
 };
 
